@@ -1,0 +1,237 @@
+{% load static %}
+<html>
+  <head> 
+     <title>Register</title>
+     <link rel="stylesheet" href="{% static 'nav.css' %}">
+       <style>
+            span{
+                   color:red;
+                   font-size:15px;
+           }
+        </style>
+        <script>
+
+ function f_name(){ 
+                         alpha=/^[a-zA-Z]+$/;
+                                 fn=document.getElementById("fn").value;
+                                 f=document.getElementById("fn");
+                                 err1=document.getElementById("err1");
+                                 if(fn.length==0){
+                                                    err1.innerHTML="enter first name"; 
+                                                    f.style.border="1px solid red";
+                                                }
+                                  else if(fn.match(alpha)){
+                                                    err1.innerHTML=""; 
+                                                    f.style.border=null;
+                                                }
+                                 else{
+                                                    err1.innerHTML="digits not allowed"; 
+                                                    f.style.border="1px solid red";
+                                                }
+                       }
+                   function l_name(){  alpha=/^[a-zA-Z]+$/;
+                                 ln=document.getElementById("ln").value;
+                                 l=document.getElementById("ln");
+                                 err2=document.getElementById("err2");
+                                     if(ln.length==0){
+                                                    err2.innerHTML="enter last name"; 
+                                                    l.style.border="1px solid red";
+                                                }
+                                  else if(ln.match(alpha)){
+                                                    err2.innerHTML="";
+                                                    l.style.border=null;
+                                                }
+                                 else{
+                                                    err2.innerHTML="digits not allowed"; 
+                                                    l.style.border="1px solid red";
+                                                }
+                      }
+
+                       function mobile(){
+                                 mbl=document.getElementById("mbl").value;
+                                 err3=document.getElementById("err3");
+                                 m=document.getElementById("mbl");
+                                  if(isNaN(mbl)){
+                                                    err3.innerHTML="enter digits only"; 
+                                                    m.style.border="1px solid red";
+                                                }
+                                   else if(mbl.length<10||mbl.length>10){ 
+                                                    err3.innerHTML="enter a valid mobile number";  
+                                                    m.style.border="1px solid red";
+                                                }
+                                 else{
+                                                    err3.innerHTML=" ";
+                                                    m.style.border=null;
+                                                }
+                                }
+                                     
+                        function email(){
+                                 reg=/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+                                 eml=document.getElementById("eml").value;
+                                 err4=document.getElementById("err4");
+                                 e=document.getElementById("eml");
+                                  if(eml.length==0){
+                                                    err4.innerHTML="enter email"; 
+                                                    e.style.border="1px solid red";
+                                                }
+                                  else if(eml.match(reg)){
+                                                    err4.innerHTML="";
+                                                    e.style.border=null;
+                                                }
+                                 else{
+                                                    err4.innerHTML="enter valid email ";  
+                                                    e.style.border="1px solid red";
+                                                }
+                                }
+
+                         function pw(){
+                                 pwd=document.getElementById("pwd1").value;
+                                 err5=document.getElementById("err5");
+                                 pw=document.getElementById("pwd1"); 
+                                if(pwd.length==0){
+                                                    err5.innerHTML="enter password"; 
+                                                    pw.style.border="1px solid red";
+                                                }
+                                 else{
+                                                    err5.innerHTML=" ";
+                                                    pw.style.border=null;
+                                                }
+                      }
+                                    
+                   function plength(){
+                                 pwd=document.getElementById("pwd1").value;
+                                 err5=document.getElementById("err5");
+                                 pw=document.getElementById("pwd1"); 
+                                        if(pwd.length<5 && pwd.length>0){
+                                                    err5.innerHTML="weak";  
+                                                    pw.style.border=null;
+                                                }
+                                  else if(pwd.length>5 && pwd.length<10){
+                                                    err5.innerHTML="medium";  
+                                                    pw.style.border=null;
+                                                }
+                                  else if(pwd.length>10 &&pwd.length<15 ){
+                                                    err5.innerHTML="strong";  
+                                                    pw.style.border=null;
+                                                }
+                                  else if(pwd.length>15){
+                                                    err5.innerHTML="very strong";  
+                                                    pw.style.border=null;
+                                                }
+                                 else{
+                                                    err5.innerHTML=" ";
+                                                    pw.style.border=null;
+                                                }
+
+                               }
+
+                      function pmatch(){
+                                       
+                                 pwd1=document.getElementById("pwd1").value;
+                                 pwd2=document.getElementById("pwd2").value;
+                                 err6=document.getElementById("err6");
+                                 pw=document.getElementById("pwd2"); 
+                                         if(pwd2.length>1 && pwd1!=pwd2){
+                                                    err6.innerHTML="password doesn't match";  
+                                                    pw.style.border="1px solid red";
+                                                }
+                                 else{
+                                                    err6.innerHTML=" ";
+                                                    pw.style.border=null;
+                                            }
+
+                                         }
+
+                      </script>
+  </head>
+<body>
+    <nav>
+<img src="{% static 'images/logo.jpg' %}" height="100px" style="float:left;">
+        <div class="search-box">
+   <form action="/search" method="get">
+<input type="text" class="search" placeholder="search..." name="srch"></input>
+<button class="search-image">
+<img src="{% static 'icons/search.png' %}" class="search-image"/></button>
+    </form></div>
+        <ul>  
+               <li><a href="/">Home</a></li>
+               {% if user.is_authenticated %}
+               <li><a href="#">Hi,{{user.first_name}}</a></li>
+               <li><a href="logout">Logout</a></li>
+               {% else %}
+               <li><a href="login">Login</a></li>
+               <li><a href="register">Register</a></li>
+               {% endif %}
+               <li><a href="/sell/post">Sell</a></li>
+               <li><a href="/about">About</a></li>
+               <li><a href="/contact">Contact Us</a></li>
+       </ul>
+     </nav><br>
+               <div class="container">
+
+                 <span></span> 
+                  <div class="reglog"><center>
+   {% for message in messages %}
+<span>{{message}}</span>
+  {% endfor %}
+</center>
+           <h1>Create Account</h1><br>
+                         <form action="register" method="post" >
+                {% csrf_token %}
+                             
+                                        <label><b>First Name:</b></label>&nbsp;&nbsp;<span id="err1"></span><br>
+                                     
+                                        <input type="text" class="wd" id="fn" name="fn" onkeyup="f_name()"></input></input><br><br>
+                                     
+                                        <label><b>Last Name:</b></label>&nbsp;&nbsp;<span id="err2"></span><br>
+                                     
+                                        <input type="text" class="wd" id="ln" name="ln"  onclick="f_name()" onkeyup="l_name()"> </input><br><br>
+
+                                        <label><b>Mobile:</b></label>&nbsp;&nbsp;<span id="err3"></span><br>
+                                     
+                                        <input type="text" class="wd" id="mbl" name="mbl"  onclick="l_name()" onkeyup="mobile()"> </input><br><br>
+                                     
+                                        <label><b>E-mail:</b></label>&nbsp;&nbsp;<span id="err4"></span><br>
+                                     
+                                        <input type="text" class="wd" id="eml" name="eml" onclick="mobile()" onkeyup="email()"> </input><br><br>
+                                     
+                                        <label><b>Password:</b></label>&nbsp;&nbsp;<span id="err5"></span><br>
+                                     
+                                        <input type="password" class="wd" id="pwd1" name="pwd1" onclick="email()" onkeyup="plength()"> </input><br><br>
+                                     
+                                        <label><b>Confirm Password:</b></label>&nbsp;&nbsp;<span id="err6"></span><br>
+                                     
+                                        <input type="password" class="wd" id="pwd2" name="pwd2" onclick="pw()" onkeyup="pmatch()"> </input><br><br>
+                    
+                                 <center> <input type="submit" class="bt" style="background-color:black;" value="submit" onclick="f_name()" ></input></center>
+                       </form><br>
+                              <center><span style="color:black;">Already have an account? <a href="login"> Login </a></span></center>
+
+
+                    </div>      
+   </div>  
+<br><br><br><br><br><br>
+<div class="footer">
+      <ul class="footer-links">
+               <li><a href="https://www.facebook.com/AnimalAidUnlimited"><img class="icons" src="{% static 'icons/facebook.png' %}" /></a></li>
+               <li><a href=""><img class="icons" src="{% static 'icons/twitter.png' %}" /></a></li>
+               <li><a href=""><img class="icons" src="{% static 'icons/g+.png' %}" /></a></li>
+               <li><a href="https://www.youtube.com/channel/UC4kyYTypYb3mQ6ZL25kly6g"><img class="icons" src="{% static 'icons/youtube.png' %}" /></a></li>
+               <li><a href="https://www.instagram.com/animalaid_india/"><img class="icons" src="{% static 'icons/insta.png' %}" /></a></li>
+      </ul><br><br>
+          <div class="icons-div">
+      <ul class="footer-about">
+               <li><a href="/">Home</a></li>
+               {% if user.is_authenticated %}
+                 <li><a href="logout">Logout</a></li>
+               {% else %}
+                <li><a href="login">Login</a></li>
+                <li><a href="register">Register</a></li>
+               {% endif %}
+               <li><a href="/about">About</a></li>
+               <li><a href="/contact">Contact Us</a></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

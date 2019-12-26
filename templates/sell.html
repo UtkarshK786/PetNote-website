@@ -1,0 +1,87 @@
+{% load static %}
+<html>
+  <head> 
+     <title>Sell</title>
+     <link rel="stylesheet" href="{% static 'nav.css' %}">
+  </head>
+<body> 
+   <nav style="position:absolute;">
+<img src="{% static 'images/logo.jpg' %}" height="100px" style="float:left;">
+        <div class="search-box">
+   <form action="/search" method="get">
+<input type="text" class="search" placeholder="search..." name="srch"></input>
+<button class="search-image">
+<img src="{% static 'icons/search.png' %}" class="search-image"/></button>
+    </form></div>
+        <ul>  
+               <li><a href="/">Home</a></li>
+               {% if user.is_authenticated %}
+               <li><a href="#">Hi,{{user.first_name}}</a></li>
+               <li><a href="/account/logout">Logout</a></li>
+               {% else %}
+               <li><a href="/account/login">Login</a></li>
+               <li><a href="/account/register">Register</a></li>
+               {% endif %}
+               <li><a href="sell/post">Sell</a></li>
+               <li><a href="/about">About</a></li>
+               <li><a href="/contact">Contact Us</a></li>
+       </ul>
+          </nav><br>
+               <div class="container">
+                  <div class="content" style="border:1px solid black;padding:20px;border-radius:5px;">
+{% if user.is_authenticated %}
+<span style="font-size:20px;"><b>Post here:</b></span>
+<center><span style="font-size:20px;color:lightgreen"><b>{{msg}}</b></span></center><br><br>
+  {% for message in messages %}
+      <span style="color:red;">{{message}}</span>
+       {% endfor %}                   
+<form action="post" method="POST">
+       {% csrf_token %}
+   <label><b>Title:</b></label>(a short descriptive title about your pet in 3-4 words)<br><br>
+                          <input type="text" name="petname" class="wd" style="width:300px;"></input><br><br>
+                          <label><b>Category:</b></label>&nbsp;&nbsp;
+                               <select name="category">
+                                 <option>Please select...</option>
+                                 <option>Dog</option>
+                                 <option>Cat</option>
+                                 <option>Mouse</option>
+                                 <option>Other</option>
+                               </select><br><br>
+                          <label><b>Price:</b></label><br><br>
+                          <input type="text" name="price" class="wd" ></input><br><br>
+                          <label><b>Upload an image:</b></label>
+                          <input type="file" name="img" accept="image/*"></input><br><br>
+                          <input type="submit" value="submit"></input>
+</form>
+{% else %}
+<center><span>You need to login first to access this page..<a href="/account/login">Login</a></span></center>
+                    </div>
+{% endif %}
+
+            </div>  
+<br><br><br><br><br><br>
+<div class="footer">
+      <ul class="footer-links">
+               <li><a href="https://www.facebook.com/AnimalAidUnlimited"><img class="icons" src="{% static 'icons/facebook.png' %}" /></a></li>
+               <li><a href=""><img class="icons" src="{% static 'icons/twitter.png' %}" /></a></li>
+               <li><a href=""><img class="icons" src="{% static 'icons/g+.png' %}" /></a></li>
+               <li><a href="https://www.youtube.com/channel/UC4kyYTypYb3mQ6ZL25kly6g"><img class="icons" src="{% static 'icons/youtube.png' %}" /></a></li>
+               <li><a href="https://www.instagram.com/animalaid_india/"><img class="icons" src="{% static 'icons/insta.png' %}" /></a></li>
+      </ul><br><br>
+          <div class="icons-div">
+      <ul class="footer-about">
+               <li><a href="/">Home</a></li>
+               <li><a href="/">Home</a></li>
+               {% if user.is_authenticated %}
+                 <li><a href="account/logout">Logout</a></li>
+               {% else %}
+                <li><a href="account/login">Login</a></li>
+                <li><a href="account/register">Register</a></li>
+               {% endif %}
+               <li><a href="/about">About</a></li>
+               <li><a href="/contact">Contact Us</a></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

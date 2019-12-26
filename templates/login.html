@@ -1,0 +1,86 @@
+{% load static %}
+<html>
+  <head> 
+     <title>Login</title>
+     <link rel="stylesheet" href="{% static 'nav.css' %}">
+     <style>
+            span{
+                   color:red;
+                   font-size:15px;
+           }
+        </style>
+  </head>
+<body>
+    
+    <nav>
+      <img src="{% static 'images/logo.jpg' %}" height="100px" style="float:left;">
+        <div class="search-box">
+   <form action="/search" method="get">
+<input type="text" class="search" placeholder="search..." name="srch"></input>
+<button class="search-image">
+<img src="{% static 'icons/search.png' %}" class="search-image"/></button>
+    </form></div>
+        <ul>  
+               <li><a href="/">Home</a></li>
+               {% if user.is_authenticated %}
+               <li><a href="#">Hi,{{user.first_name}}</a></li>
+               <li><a href="account/logout">Logout</a></li>
+               {% else %}
+               <li><a href="login">Login</a></li>
+               <li><a href="register">Register</a></li>
+               {% endif %}
+               <li><a href="/sell/post">Sell</a></li>
+               <li><a href="/about">About</a></li>
+               <li><a href="/contact">Contact Us</a></li>
+       </ul>
+     </nav><br>           <div class="container" style="height:50%;">
+
+ 
+                  <div class="reglog"><center>
+       {% for message in messages %}
+<span>{{message}}</span>
+     {% endfor %}
+</center><h1>Login</h1><br>
+                         <form action="login" method="post">    
+                         {% csrf_token %}                                 
+                                        <label><b>E-mail:</b></label><br>
+                                     
+                                        <input type="text" class="wd" id="eml" name="eml"> </input><br><br>
+                                     
+                                        <label><b>Password:</b></label><br>
+                                     
+                                        <input type="password" class="wd" id="pwd1" name="pwd"> </input><br><br>
+                                     
+                   
+                                 <center> <input type="submit" class="bt" style="background-color:black;color:white;" value="Sign in"></input></center>
+                       </form><br>
+                              <center><span style="color:black;">New to PetNote.com? <a href="register"> Register</a></span></center>
+
+
+                    </div>      
+   </div>  
+<br><br><br><br><br><br>
+<div class="footer">
+      <ul class="footer-links">
+               <li><a href="https://www.facebook.com/AnimalAidUnlimited"><img class="icons" src="{% static 'icons/facebook.png' %}" /></a></li>
+               <li><a href=""><img class="icons" src="{% static 'icons/twitter.png' %}" /></a></li>
+               <li><a href=""><img class="icons" src="{% static 'icons/g+.png' %}" /></a></li>
+               <li><a href="https://www.youtube.com/channel/UC4kyYTypYb3mQ6ZL25kly6g"><img class="icons" src="{% static 'icons/youtube.png' %}" /></a></li>
+               <li><a href="https://www.instagram.com/animalaid_india/"><img class="icons" src="{% static 'icons/insta.png' %}" /></a></li>
+      </ul><br><br>
+          <div class="icons-div">
+      <ul class="footer-about">
+               <li><a href="/">Home</a></li>
+               {% if user.is_authenticated %}
+                 <li><a href="logout">Logout</a></li>
+               {% else %}
+                <li><a href="login">Login</a></li>
+                <li><a href="register">Register</a></li>
+               {% endif %}
+               <li><a href="/about">About</a></li>
+               <li><a href="/contact">Contact Us</a></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
